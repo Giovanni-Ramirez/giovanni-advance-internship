@@ -1,0 +1,186 @@
+@import url("https://fonts.googleapis.com/css2?family=Roboto:wght@100;300;400;500;700;900&display=swap");
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Roboto", sans-serif;
+}
+
+body {
+  max-width: 100%;
+  overflow-x: hidden;
+}
+
+a {
+  text-decoration: none;
+  color: inherit;
+}
+
+ul {
+  list-style: none;
+}
+
+button {
+  cursor: pointer;
+  outline: none;
+  border: none;
+  background-color: transparent;
+}
+
+button:active {
+  transform: translateY(1px);
+}
+
+button:disabled {
+  cursor: not-allowed;
+  opacity: 0.65;
+}
+
+.row {
+  max-width: 1070px;
+  width: 100%;
+  margin: 0 auto;
+  padding: 0 24px;
+}
+
+.container {
+  padding: 40px 0;
+  width: 100%;
+}
+
+.btn {
+  background-color: #2bd97c;
+  color: #032b41;
+  width: 100%;
+  height: 40px;
+  border-radius: 4px;
+  font-size: 16px;
+  transition: background-color 200ms;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 180px;
+}
+
+.btn:hover:not(:disabled) {
+  background-color: #20ba68;
+}
+
+.btn:active {
+  transform: translateY(1px);
+}
+
+.homeCtaBtn {
+  max-width: 300px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* HOME */
+.section__title {
+  font-size: 32px;
+  color: #032b41;
+  text-align: center;
+  margin-bottom: 32px;
+  font-weight: bold;
+}
+
+
+/* @media (max-width: 768px) {
+  .landingContent {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    max-width: 540px;
+    margin: 0 auto;
+  }
+
+  .landingImageMask {
+    display: none;
+  }
+
+  .landingContentTitle {
+    font-size: 24px;
+  }
+
+  .featuresWrapper {
+    grid-template-columns: 1fr;
+  }
+
+  .statisticsWrapper {
+    flex-direction: column;
+    gap: 32px;
+    margin-bottom: 32px;
+  }
+
+  .statisticsHeading {
+    font-size: 24px;
+  }
+
+  .footerTopWrapper {
+    flex-direction: column;
+    gap: 32px;
+  }
+
+  .numbersWrapper {
+    grid-template-columns: 1fr;
+  }
+
+  .statisticsContentDetailsSecond {
+    order: 1;
+  }
+
+  .statisticsContentHeaderSecond {
+    align-items: flex-start;
+  }
+
+  .statisticsDataTitle {
+    font-size: 16px;
+  }
+
+  .section__title {
+    font-size: 24px;
+  }
+
+  .featuresTitle {
+    font-size: 20px;
+  }
+
+  .featuresSubTitle {
+    font-size: 14px;
+  }
+
+  .featuresIcon svg {
+    width: 48px;
+    height: 48px;
+  }
+
+  .reviewBody {
+    font-size: 14px;
+  }
+
+  .numbersWrapper {
+    gap: 24px;
+  }
+
+  .numbersTitle {
+    font-size: 32px;
+  }
+
+  .numbersSubTitle {
+    font-size: 14px;
+  }
+
+  .remove--tablet {
+    display: none;
+  }
+}
+
+@media (max-width: 576px) {
+  .nav__list--mobile {
+    display: none;
+  }
+} */

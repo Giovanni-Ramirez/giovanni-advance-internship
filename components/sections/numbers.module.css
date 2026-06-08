@@ -1,0 +1,47 @@
+/* NUMBERS */
+.numbers {
+    background-color: #d7e9ff;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    padding: 24px;
+    padding-bottom: 40px;
+    border-radius: 12px;
+}
+
+.numbersWrapper {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 40px;
+}
+
+.numbersIcon {
+    display: flex;
+    align-items: center;
+    height: 60px;
+    gap: 4px;
+}
+
+.numbersIcon svg {
+    color: #0365f2;
+    width: 48px;
+    height: 48px;
+}
+
+.numbersStarIcon svg {
+    width: 20px;
+    height: 20px;
+}
+
+.numbersTitle {
+    font-size: 40px;
+    color: #032b41;
+    font-weight: 600;
+    margin-bottom: 16px;
+}
+
+.numbersSubTitle {
+    color: #394547;
+    font-weight: 300;
+}
