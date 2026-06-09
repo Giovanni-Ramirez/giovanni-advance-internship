@@ -10,10 +10,10 @@ export default function Navbar() {
                     <Image className={styles.nav__img} src={logo} alt="logo" />
                 </figure>
                 <ul className={styles.nav__listWrapper}>
-                <li className={`${styles.nav__list} ${styles.nav__listLogin}`}>Login</li>
-                <li className={`${styles.nav__list} ${styles.nav__listMobile}`}>About</li>
-                <li className={`${styles.nav__list} ${styles.nav__listMobile}`}>Contact</li>
-                <li className={`${styles.nav__list} ${styles.nav__listMobile}`}>Help</li>
+                    <li className={`${styles.nav__list} ${styles.nav__listLogin}`}>Login</li>
+                    <li className={`${styles.nav__list} ${styles.nav__listMobile}`}>About</li>
+                    <li className={`${styles.nav__list} ${styles.nav__listMobile}`}>Contact</li>
+                    <li className={`${styles.nav__list} ${styles.nav__listMobile}`}>Help</li>
                 </ul>
             </div>
         </nav>
