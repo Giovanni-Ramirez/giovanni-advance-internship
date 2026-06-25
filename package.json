@@ -9,7 +9,10 @@
     "lint": "eslint"
   },
   "dependencies": {
+    "@dotenvx/dotenvx": "^1.75.1",
+    "@dotenvx/next-env": "^2.1.1",
     "@reduxjs/toolkit": "^2.12.0",
+    "firebase": "^12.15.0",
     "next": "16.2.7",
     "react": "19.2.4",
     "react-dom": "19.2.4",
@@ -23,5 +26,8 @@
     "eslint": "^9",
     "eslint-config-next": "16.2.7",
     "typescript": "^5"
+  },
+    "overrides": {
+    "@next/env": "npm:@dotenvx/next-env"
   }
 }
