@@ -11,7 +11,7 @@ import { authModalToggle } from '@/store/slice';
 // firebase
 import React, { useState } from "react";
 import { auth } from "@/lib/firebase";
-import { signInWithEmailAndPassword, createUserWithEmailAndPassword } from "firebase/auth";
+import { signInWithEmailAndPassword, createUserWithEmailAndPassword, signInAnonymously } from "firebase/auth";
 
 interface LoginFormState {
     email: string;
@@ -51,6 +51,19 @@ export default function Auth() {
         }
     };
 
+    const handleGuestLogin = async () => {
+        try { 
+            await signInAnonymously(auth);
+            console.log('Guest login successful');
+        } catch (error: unknown) {
+            if (error instanceof Error) {
+                console.error(error.message);
+            } else {
+                console.error(String(error));
+            }
+        }
+    }
+
 
     const isToggled: boolean = useSelector((state: RootState) => state.authModalToggle.status)
     const dispatch = useDispatch()
@@ -64,7 +77,7 @@ export default function Auth() {
                             <div className={styles.auth} onClick={(e) => e.stopPropagation()}>
                                 <div className={styles.auth__content}>
                                     <div className={styles.auth__title}>Log in to Summarist</div>
-                                    <button className={`${styles.btn} ${styles.guest__btn_wrapper}`}>
+                                    <button type="button" className={`${styles.btn} ${styles.guest__btn_wrapper}`} onClick={handleGuestLogin}>
                                         <figure className={`${styles.auth__icon} ${styles.auth__icon_guest}`}>
                                             <IoPersonSharp/>
                                         </figure>
