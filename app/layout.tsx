@@ -1,7 +1,5 @@
 import type { Metadata } from "next";
 import "./globals.css";
-import Navbar from "@/components/navbar";
-import Footer from "@/components/footer";
 import { StoreProvider } from "@/store/StoreProvider";
 import Auth from '@/components/auth';
 
@@ -16,13 +14,11 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" >
-      <StoreProvider>
-        <Navbar/>
-        <body>{children}</body>
-        <Footer/>
-        <Auth/>
-      </StoreProvider>
-    </html>
+    <StoreProvider>
+      <html lang="en" >
+          <body>{children}</body>
+          <Auth/>
+      </html>
+    </StoreProvider>
   );
 }
