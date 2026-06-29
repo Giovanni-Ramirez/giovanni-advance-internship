@@ -1,6 +1,7 @@
 import Image from "next/image";
 import styles from "./landing.module.css"
 import landingImg from '@/assets/landing.png'
+import ToggleAuthBtn from "../ui/toggleAuthBtn";
 
 export default function landing() {
     return (
@@ -20,7 +21,9 @@ export default function landing() {
                         <br className={styles.removeTablet} />
                         and even people who don&apos;t like to read.
                     </div>
-                    <button className={`btn homeCtaBtn`}>Login</button>
+                    <ToggleAuthBtn>
+                        <button className={`btn homeCtaBtn`}>Login</button>
+                    </ToggleAuthBtn>
                     </div>
                     <figure className={styles.landingImageMask}>
                         <Image src={landingImg} alt="landing" />
