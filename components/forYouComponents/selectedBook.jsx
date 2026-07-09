@@ -6,12 +6,11 @@ export default async function SelectedBook() {
     const response = await fetch('https://us-central1-summaristt.cloudfunctions.net/getBooks?status=selected');
 
     if(!response.ok) {
-        throw new Error('Failed to fetch user data');
+        throw new Error('Failed to fetch book data');
     }
 
     const data = await response.json();
     const book = data[0]
-    console.log(book)
 
     return (
 
