@@ -1,3 +1,9 @@
+import styles from './page.module.css'
+import SearchBar from "@/components/searchBar";
+import SideNavbar from "@/components/sideNavBar";
+import FontInit from "@/components/FontInit";
+import AudioBar from '@/components/audioComponents/audioBar';
+
 type Props = {
     params: Promise<{ id: string }>   
 }
@@ -20,13 +26,31 @@ export default async function BookPage({ params }: Props) {
     if (!book) {
         return <main><h1>Book not found</h1></main>;
     } else {
-        console.log(book)
+        // console.log(book)
     }
 
 
     return (
-        <div>
-            hello this is the ID {id}
+        <div className={styles.left__border}>
+            <SideNavbar route={'player'}/>
+            <div className={styles.search__background}>
+                <div  className={styles.search__wrapper}>
+                    <div className={styles.search__sub_elem}></div>
+                    <SearchBar/>
+                </div>
+            </div>
+
+            <FontInit />
+            <div className={styles.summary__container}>
+                <div className={styles.audio__book_summary}>
+                    <div className={styles.audio__book_title}>{book.title}</div>
+                    <div className={styles.audio__book_summary} style={{ whiteSpace: 'pre-line' }}>
+                        {book.summary}
+                    </div>
+                </div>
+            </div>
+            <AudioBar title={book.title} author={book.author} image={book.imageLink} audioLink={book.audioLink}/>
         </div>
+
     );
 }

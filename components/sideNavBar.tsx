@@ -1,3 +1,4 @@
+"use client"
 import { AiOutlineHome } from "react-icons/ai";
 import { CiBookmark } from "react-icons/ci";
 import { FaPen } from "react-icons/fa";
@@ -8,12 +9,48 @@ import { FiLogOut } from "react-icons/fi";
 import logo from "../assets/logo.png";
 import Image from "next/image";
 import styles from "./sideNavBar.module.css";
+import { useEffect } from "react";
 
 
-export default function SideNavbar() {
+type SideNavbarProps = {
+    route?: string
+}
+
+export default function SideNavbar({ route }: SideNavbarProps) {
+
+    const closeSidebar = () => {
+        const sidebar = document.querySelector('.sidebar');
+        const overlay = document.querySelector('.sidebar-overlay');
+        if (!sidebar || !overlay) return;
+
+        sidebar.classList.remove('sidebar-open');
+        overlay.classList.remove('sidebar-overlay-open');
+    }
+
+    const fontSizeControl = (fontSize: number) => {
+        const fontControlParent = document.querySelector(`.${styles.font__size_control}`);
+
+        if (!fontControlParent) {
+            return
+        } else {
+            for (let i = 0; i < 4; i++) {
+                if (i === fontSize ){
+                    fontControlParent.children[fontSize].classList.add(`${styles.bottom_highlighted}`);
+                } else {
+                    fontControlParent.children[i].classList.remove(`${styles.bottom_highlighted}`);
+                }
+            }
+        }
+    }
+
+    useEffect(() => {
+        fontSizeControl(0)
+    }, [])
+
     return (
-        <nav className={styles.sidebar}>
-            <div className={styles.sidebar__logo}>
+        <>
+            <nav className={`sidebar ${styles.sidebar}`}>
+                <div className={styles.sidebar__logo}>
                 <Image className={styles.sidebar__logoImage} src={logo} alt="logo"/>
             </div>
             <div className={styles.sidebar__wrapper}>
@@ -49,6 +86,50 @@ export default function SideNavbar() {
                         </div>
                         <div className="sidebar__link_text">Search</div>
                     </a>
+                    {route === 'player' && 
+                        <div className={styles.font__size_control}>
+                            <button
+                                type="button"
+                                aria-label="Tiny font"
+                                className={styles.font__size_tiny}
+                                onClick={() => {
+                                    document.documentElement.style.setProperty('--player-font-size', '16px');
+                                    localStorage.setItem('playerFontSize', '16px');
+                                    fontSizeControl(0);
+                                }}
+                            >Aa</button>
+                            <button
+                                type="button"
+                                aria-label="Small font"
+                                className={styles.font__size_small}
+                                onClick={() => {
+                                    document.documentElement.style.setProperty('--player-font-size', '18px');
+                                    localStorage.setItem('playerFontSize', '18px');
+                                    fontSizeControl(1);
+                                }}
+                            >Aa</button>
+                            <button
+                                type="button"
+                                aria-label="Medium font"
+                                className={styles.font__size_meduim}
+                                onClick={() => {
+                                    document.documentElement.style.setProperty('--player-font-size', '20px');
+                                    localStorage.setItem('playerFontSize', '20px');
+                                    fontSizeControl(2);
+                                }}
+                            >Aa</button>
+                            <button
+                                type="button"
+                                aria-label="Large font"
+                                className={styles.font__size_large}
+                                onClick={() => {
+                                    document.documentElement.style.setProperty('--player-font-size', '26px');
+                                    localStorage.setItem('playerFontSize', '26px');
+                                    fontSizeControl(3);
+                                }}
+                            >Aa</button>
+                        </div>
+                    }
                 </div>
 
                 <div className={styles.sidebar__bottom}>
@@ -72,9 +153,14 @@ export default function SideNavbar() {
                             <FiLogOut className={styles.sidebar__icon}/>
                         </div>
                         <div className={styles.sidebar__link_text}>Logout</div>
-                    </a>
+                    </a>   
+                    {route === 'player' && 
+                            <div className={styles.player__bottom_margin}></div>
+                    }
                 </div>
             </div>
         </nav>
+            <div className="sidebar-overlay" onClick={closeSidebar}></div>
+        </>
     )
 }
