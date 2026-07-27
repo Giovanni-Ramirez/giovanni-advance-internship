@@ -9,7 +9,7 @@ import { FiLogOut } from "react-icons/fi";
 import logo from "../assets/logo.png";
 import Image from "next/image";
 import styles from "./sideNavBar.module.css";
-import { useState } from "react";
+import { useEffect } from "react";
 
 
 type SideNavbarProps = {
@@ -29,7 +29,7 @@ export default function SideNavbar({ route }: SideNavbarProps) {
 
     const fontSizeControl = (fontSize: number) => {
         const fontControlParent = document.querySelector(`.${styles.font__size_control}`);
-        
+
         if (!fontControlParent) {
             return
         } else {
@@ -42,6 +42,10 @@ export default function SideNavbar({ route }: SideNavbarProps) {
             }
         }
     }
+
+    useEffect(() => {
+        fontSizeControl(0)
+    }, [])
 
     return (
         <>
@@ -89,8 +93,8 @@ export default function SideNavbar({ route }: SideNavbarProps) {
                                 aria-label="Tiny font"
                                 className={styles.font__size_tiny}
                                 onClick={() => {
-                                    document.documentElement.style.setProperty('--player-font-size', '14px');
-                                    localStorage.setItem('playerFontSize', '14px');
+                                    document.documentElement.style.setProperty('--player-font-size', '16px');
+                                    localStorage.setItem('playerFontSize', '16px');
                                     fontSizeControl(0);
                                 }}
                             >Aa</button>
@@ -99,8 +103,8 @@ export default function SideNavbar({ route }: SideNavbarProps) {
                                 aria-label="Small font"
                                 className={styles.font__size_small}
                                 onClick={() => {
-                                    document.documentElement.style.setProperty('--player-font-size', '16px');
-                                    localStorage.setItem('playerFontSize', '16px');
+                                    document.documentElement.style.setProperty('--player-font-size', '18px');
+                                    localStorage.setItem('playerFontSize', '18px');
                                     fontSizeControl(1);
                                 }}
                             >Aa</button>
@@ -109,8 +113,8 @@ export default function SideNavbar({ route }: SideNavbarProps) {
                                 aria-label="Medium font"
                                 className={styles.font__size_meduim}
                                 onClick={() => {
-                                    document.documentElement.style.setProperty('--player-font-size', '18px');
-                                    localStorage.setItem('playerFontSize', '18px');
+                                    document.documentElement.style.setProperty('--player-font-size', '20px');
+                                    localStorage.setItem('playerFontSize', '20px');
                                     fontSizeControl(2);
                                 }}
                             >Aa</button>
@@ -119,8 +123,8 @@ export default function SideNavbar({ route }: SideNavbarProps) {
                                 aria-label="Large font"
                                 className={styles.font__size_large}
                                 onClick={() => {
-                                    document.documentElement.style.setProperty('--player-font-size', '20px');
-                                    localStorage.setItem('playerFontSize', '20px');
+                                    document.documentElement.style.setProperty('--player-font-size', '26px');
+                                    localStorage.setItem('playerFontSize', '26px');
                                     fontSizeControl(3);
                                 }}
                             >Aa</button>

@@ -140,7 +140,6 @@
 .player__bottom_margin {
     height: 60px;
     width: 100%;
-    background-color: aqua;
 } 
 
 @media (max-width: 770px) { 
