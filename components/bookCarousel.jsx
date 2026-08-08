@@ -8,7 +8,6 @@ import Link from "next/link";
 
 export default function BookCarousel({ books = [] }) {
     const safeBooks = Array.isArray(books) ? books : books?.books ?? [];
-    console.log(safeBooks)
 
     if (!safeBooks.length) {
         return (

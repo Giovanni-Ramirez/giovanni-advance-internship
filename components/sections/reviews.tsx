@@ -1,5 +1,6 @@
 import { BsStarFill } from "react-icons/bs";
-import styles from '@/components/sections/reviews.module.css'
+import styles from '@/components/sections/reviews.module.css';
+import ToggleAuthBtn from "../ui/toggleAuthBtn";
 
 export default function landing() {
     return (
@@ -64,7 +65,9 @@ export default function landing() {
                     </div>
                 </div>
                 <div className={styles.reviewsBtnWrapper}>
-                    <button className={`btn homeCtaBtn`}>Login</button>
+                    <ToggleAuthBtn>
+                        <button className={`btn homeCtaBtn`}>Login</button>
+                    </ToggleAuthBtn>
                 </div>
                 </div>
             </div>
