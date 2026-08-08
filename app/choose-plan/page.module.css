@@ -1,0 +1,119 @@
+/* FORM */
+
+.plan__form_wrapper {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+.plan__form_title {
+    font-size: 32px;
+    color: #032b41;
+    text-align: center;
+    margin-bottom: 32px;
+    font-weight: 700;
+}
+
+.plan__form_option {
+    max-width: 680px;
+    width: 100%;
+    border: 4px solid #bac8ce;
+    border-radius: 4px;
+    padding: 24px;
+    display: flex;
+}
+
+.plan__form_selected {
+    border: 4px solid #2bd97c;
+}
+
+.plan__form_empty_dot {
+    width: 30px;
+    height: 30px;
+    border: 2px solid black;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-right: 24px;
+}
+
+.plan__form_dot {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    border: 6px  solid black;
+}
+
+.plan__form_dot_not_selected {
+    border: 6px  solid transparent;
+}
+
+.plan__info_title {
+    font-size: 18px;
+    font-weight: 600;
+    color: #032b41;
+    margin-bottom: 8px;
+}
+
+.plan__info_price {
+    font-size: 24px;
+    font-weight: 700;
+    color: #032b41;
+    margin-bottom: 8px;
+}
+
+.plan__info_text {
+    color: #6b757b;
+    font-size: 14px;
+}
+
+.plan__card_separator {
+    font-size: 14px;
+    color: #6b757b;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    max-width: 240px;
+    margin: 24px auto;
+}
+
+.plan__card_separator:after,
+.plan__card_separator:before {
+    content: "";
+    width: 100px;
+    height: 1px;
+    background: #bac8ce;
+}
+
+.plan__card_cta {
+    background: #fff;
+    position: -webkit-sticky;
+    position: sticky;
+    bottom: 0;
+    z-index: 1;
+    padding: 32px 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 16px;
+}
+
+.btn__wrapper button {
+    padding: 0 40px;
+    border-radius: 8px;
+}
+
+.plan__form_options_wrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.plan__disclaimer {
+    font-size: 12px;
+    color: #6b757b;
+    text-align: center;
+}
+

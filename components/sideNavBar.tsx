@@ -9,7 +9,9 @@ import { FiLogOut } from "react-icons/fi";
 import logo from "../assets/logo.png";
 import Image from "next/image";
 import styles from "./sideNavBar.module.css";
-import { useEffect } from "react";
+import { useEffect, type MouseEvent } from "react";
+import { auth } from "@/lib/firebase";
+import { useRouter } from "next/navigation";
 
 
 type SideNavbarProps = {
@@ -17,6 +19,7 @@ type SideNavbarProps = {
 }
 
 export default function SideNavbar({ route }: SideNavbarProps) {
+    const router = useRouter();
 
     const closeSidebar = () => {
         const sidebar = document.querySelector('.sidebar');
@@ -46,6 +49,18 @@ export default function SideNavbar({ route }: SideNavbarProps) {
     useEffect(() => {
         fontSizeControl(0)
     }, [])
+
+    const signOut = async (e: MouseEvent<HTMLAnchorElement>) => {
+        e.preventDefault();
+
+        if (!auth) {
+            router.replace('/');
+            return;
+        }
+
+        await auth.signOut();
+        router.replace('/');
+    }
 
     return (
         <>
@@ -147,7 +162,7 @@ export default function SideNavbar({ route }: SideNavbarProps) {
                         </div>
                         <div className={styles.sidebar__link_text}>Help & Suppport</div>
                     </a>
-                    <a href="" className={styles.sidebar__link_wrapper}>
+                    <a href="" className={styles.sidebar__link_wrapper} onClick={signOut}>
                         <div className={styles.sidebar__link_line}></div>
                         <div className={styles.sidebar__link_icon}>
                             <FiLogOut className={styles.sidebar__icon}/>

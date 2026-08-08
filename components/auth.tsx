@@ -3,7 +3,7 @@
 import { IoPersonSharp, IoCloseOutline } from "react-icons/io5";
 import googleLogo from "@/assets/google.png"
 import Image from "next/image";
-import styles from "./auth.module.css"
+import styles from "./auth.module.css";
 // redux
 import type { RootState } from '@/store/store'; 
 import { useSelector, useDispatch } from 'react-redux';
@@ -22,12 +22,23 @@ export default function Auth() {
     const [haveAccount, setHaveAccount] = useState<boolean>(true);
     const [email, setEmail] = useState<LoginFormState["email"]>("");
     const [password, setPassword] = useState<LoginFormState["password"]>("");
+    const dispatch = useDispatch();
+
+    const closeAuthModal = () => {
+        dispatch(authModalToggle());
+    };
 
     const handleLogin = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
+        if (!auth) {
+            console.error("Firebase auth is not configured.");
+            return;
+        }
+
         try {
             const userCredential = await signInWithEmailAndPassword(auth, email, password);
             console.log("Logged in:", userCredential.user);
+            closeAuthModal();
         } catch (error: unknown) {
             if (error instanceof Error) {
                 console.error(error.message);
@@ -39,9 +50,15 @@ export default function Auth() {
 
     const handleSignup = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
+        if (!auth) {
+            console.error("Firebase auth is not configured.");
+            return;
+        }
+
         try {
             const userCredential = await createUserWithEmailAndPassword(auth, email, password);
             console.log("Signed up:", userCredential.user);
+            closeAuthModal();
         } catch (error: unknown) {
             if (error instanceof Error) {
                 console.error(error.message);
@@ -52,9 +69,15 @@ export default function Auth() {
     };
 
     const handleGuestLogin = async () => {
+        if (!auth) {
+            console.error("Firebase auth is not configured.");
+            return;
+        }
+
         try { 
             await signInAnonymously(auth);
             console.log('Guest login successful');
+            closeAuthModal();
         } catch (error: unknown) {
             if (error instanceof Error) {
                 console.error(error.message);
@@ -66,7 +89,6 @@ export default function Auth() {
 
 
     const isToggled: boolean = useSelector((state: RootState) => state.authModalToggle.status)
-    const dispatch = useDispatch()
 
 
     return (

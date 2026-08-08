@@ -1,0 +1,41 @@
+/* plan features */
+
+.plan__features_wrapper {
+    display: flex;
+    width: 100%;
+    justify-content: space-around;
+    color: #032b41;
+    margin-bottom: 60px;
+}
+
+.plan__features {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: calc(100% / 3.5);
+}
+
+.plan__feature_icon_wrapper {
+    font-size: 70px;
+}
+
+.plan__feature_text {
+    text-align: center;
+    line-height: 1.5;
+}
+
+.plan__feature_bold_text {
+    font-weight: 700;
+}
+
+@media (max-width: 770px) {
+    .plan__features_wrapper {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .plan__features {
+        width: auto;
+        margin-bottom: 12px;
+    }
+}

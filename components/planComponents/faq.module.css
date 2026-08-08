@@ -1,0 +1,84 @@
+.accordion__card {
+    border-bottom: 1px solid #ddd;
+    margin-bottom: 8px;
+    overflow: hidden
+}
+
+.accordion__header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    cursor: pointer;
+    padding: 24px 0;
+    gap: 8px;
+}
+
+.accordion__title {
+    font-weight: 500;
+    font-size: 24px;
+    position: relative;
+    margin-bottom: 0;
+    color: #032b41;
+    transition: .3s;
+}
+
+.accordion__icon {
+    width: 24px;
+    min-width: 24px;
+    height: 24px;
+    transform: rotate(180deg);
+    transition: transform .3s;
+}
+
+.collapse {
+    position: relative;
+    height: 0;
+    overflow: hidden;
+    transition: all .35s ease;
+}
+
+.show {
+    height: 96px;
+}
+
+.flip {
+    transform: rotate(0deg);
+}
+
+.accordion__body {
+    min-height: 1px;
+    padding-bottom: 24px;
+    color: #394547;
+    line-height: 1.5;
+}
+
+@media (max-width: 770px) {
+    .show {
+        height: 120px;
+    }
+}
+
+
+@media (max-width: 650px) {
+    .show {
+        height: 150px;
+    }
+}
+
+@media (max-width: 500px) {
+    .show {
+        height: 170px;
+    }
+}
+
+@media (max-width: 450px) {
+    .show {
+        height: 190px;
+    }
+}
+
+@media (max-width: 400px) {
+    .show {
+        height: 225px;
+    }
+}
