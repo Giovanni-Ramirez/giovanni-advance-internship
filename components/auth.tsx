@@ -30,6 +30,11 @@ export default function Auth() {
 
     const handleLogin = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
+        if (!auth) {
+            console.error("Firebase auth is not configured.");
+            return;
+        }
+
         try {
             const userCredential = await signInWithEmailAndPassword(auth, email, password);
             console.log("Logged in:", userCredential.user);
@@ -45,6 +50,11 @@ export default function Auth() {
 
     const handleSignup = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
+        if (!auth) {
+            console.error("Firebase auth is not configured.");
+            return;
+        }
+
         try {
             const userCredential = await createUserWithEmailAndPassword(auth, email, password);
             console.log("Signed up:", userCredential.user);
@@ -59,6 +69,11 @@ export default function Auth() {
     };
 
     const handleGuestLogin = async () => {
+        if (!auth) {
+            console.error("Firebase auth is not configured.");
+            return;
+        }
+
         try { 
             await signInAnonymously(auth);
             console.log('Guest login successful');

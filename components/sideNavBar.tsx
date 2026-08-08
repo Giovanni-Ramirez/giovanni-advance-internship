@@ -52,6 +52,12 @@ export default function SideNavbar({ route }: SideNavbarProps) {
 
     const signOut = async (e: MouseEvent<HTMLAnchorElement>) => {
         e.preventDefault();
+
+        if (!auth) {
+            router.replace('/');
+            return;
+        }
+
         await auth.signOut();
         router.replace('/');
     }

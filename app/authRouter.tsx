@@ -1,9 +1,10 @@
 "use client";
-import { ReactNode, useEffect } from "react";
+import { ReactNode, useEffect, useState } from "react";
 import { usePathname, useRouter } from "next/navigation";
 import { auth } from "@/lib/firebase";
-import { User } from "firebase/auth";
-import { useAuthState } from "react-firebase-hooks/auth";
+import { onAuthStateChanged, type Auth, type User } from "firebase/auth";
+
+const firebaseAuth = auth as Auth | null;
 
 const HOME_ROUTE = "/";
 const ACCOUNT_ROUTE = "/for-you";
@@ -13,7 +14,8 @@ type AuthRouterProps = {
 };
 
 const AuthRouter = (props: AuthRouterProps) => {
-    const [user, loading] = useAuthState(auth);
+    const [user, setUser] = useState<User | null>(null);
+    const [loading, setLoading] = useState(true);
     const router = useRouter();
     const pathName = usePathname();
 
@@ -44,6 +46,21 @@ const AuthRouter = (props: AuthRouterProps) => {
             router.replace(HOME_ROUTE);
         }
     };
+
+    useEffect(() => {
+        if (!firebaseAuth) {
+            setUser(null);
+            setLoading(false);
+            return;
+        }
+
+        const unsubscribe = onAuthStateChanged(firebaseAuth, (firebaseUser) => {
+            setUser(firebaseUser);
+            setLoading(false);
+        });
+
+        return unsubscribe;
+    }, []);
 
     useEffect(() => {
         redirect(loading, user);
