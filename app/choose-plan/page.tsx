@@ -5,9 +5,23 @@ import Header from '@/components/planComponents/planHeader';
 import Features from '@/components/planComponents/features';
 import Footer from '@/components/footer';
 import { useState } from 'react';
+import { app } from '@/lib/firebase';
+import type { FirebaseApp } from 'firebase/app';
+import { getCheckoutUrl } from '../stripePayments';
+import { useRouter } from 'next/navigation';
 
 export default function ChoosePlan () {
     const [planSelected, setPlanSelected] = useState('yearly')
+
+    const router = useRouter();
+
+const upgradeToPremium = async () => {
+    const priceId = planSelected === 'yearly' 
+        ? 'price_1U3GykH01wWcnv3YjTaTmbMV'
+        : 'price_1U34gaH01wWcnv3YJVAGZ22i';
+    const checkoutUrl = await getCheckoutUrl(app as unknown as FirebaseApp, priceId);
+    router.push(checkoutUrl);
+}
 
 
     return (
@@ -52,11 +66,11 @@ export default function ChoosePlan () {
                         <div className={styles.plan__card_cta}>
                             <span className={styles.btn__wrapper}>
                                     {planSelected === 'yearly' ? 
-                                        <button className="btn">
+                                        <button className="btn" onClick={upgradeToPremium}>
                                             Start your free 7-day trial
                                         </button>
                                     :
-                                        <button className="btn">
+                                        <button className="btn" onClick={upgradeToPremium}>
                                             Start your first month
                                         </button>
                                     }
