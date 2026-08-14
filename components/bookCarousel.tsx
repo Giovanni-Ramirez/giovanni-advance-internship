@@ -10,10 +10,26 @@ import { app } from "@/lib/firebase";
 import { getAuth, onAuthStateChanged } from "firebase/auth";
 import { FirebaseApp } from "firebase/app";
 
+type Book = {
+    id?: string | number;
+    title?: string;
+    author?: string;
+    subTitle?: string;
+    imageLink?: string;
+    averageRating?: number | string;
+    subscriptionRequired?: boolean;
+};
 
+type BookCarouselProps = {
+    books?: Book[] | { books: Book[] };
+};
 
-export default function BookCarousel({ books = [] }) {
-    const safeBooks = Array.isArray(books) ? books : books?.books ?? [];
+export default function BookCarousel({ books = [] }: BookCarouselProps) {
+    const safeBooks: Book[] = Array.isArray(books)
+        ? books
+        : books && "books" in books
+            ? books.books
+            : [];
     const auth = getAuth(app as FirebaseApp | undefined);
     const [user, setUser] = useState<string | null>(null);
     const [isSubcribed, setIsSubcribed] = useState(false);
@@ -59,7 +75,13 @@ export default function BookCarousel({ books = [] }) {
                             }
 
                             <figure className={styles.book__img_wrapper}>
-                                <Image src={book.imageLink} className={styles.book__img} width={172} height={172} alt={book.title || 'book image'}/>
+                                <Image
+                                    src={book.imageLink || "/placeholder-book.png"}
+                                    className={styles.book__img}
+                                    width={172}
+                                    height={172}
+                                    alt={book.title || "book image"}
+                                />
                             </figure>
                             <div className={styles.book__title}>{book.title}</div>
                             <div className={styles.book__author}>{book.author}</div>
