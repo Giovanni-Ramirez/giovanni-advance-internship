@@ -34,7 +34,7 @@ type BookContentProps = {
 
 export default function BookContent({ book }: BookContentProps) {
     const auth = getAuth(app as FirebaseApp | undefined);
-    const [user, setUser] = useState<string | null>(null);
+    const [user, setUser] = useState<string | undefined>(undefined);
     const [isSubcribed, setIsSubcribed] = useState(false);
 
 
@@ -42,10 +42,10 @@ export default function BookContent({ book }: BookContentProps) {
         if (!auth) return;
 
         const unsubscribe = onAuthStateChanged(auth, async (authUser) => {
-            setUser(authUser?.email ?? null);
+            setUser(authUser?.email ?? undefined);
             
             const newPremiumStatus = authUser
-                ? await getPremiumStatus(app)
+                ? await getPremiumStatus(app!)
                 : false;
             setIsSubcribed(newPremiumStatus);
         });

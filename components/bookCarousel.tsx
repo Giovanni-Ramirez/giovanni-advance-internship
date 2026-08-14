@@ -8,12 +8,13 @@ import { useEffect, useState } from "react";
 import { getPremiumStatus } from "@/app/getPremiumStatus";
 import { app } from "@/lib/firebase";
 import { getAuth, onAuthStateChanged } from "firebase/auth";
+import { FirebaseApp } from "firebase/app";
 
 
 
 export default function BookCarousel({ books = [] }) {
     const safeBooks = Array.isArray(books) ? books : books?.books ?? [];
-    const auth = getAuth(app);
+    const auth = getAuth(app as FirebaseApp | undefined);
     const [user, setUser] = useState<string | null>(null);
     const [isSubcribed, setIsSubcribed] = useState(false);
 
@@ -25,7 +26,7 @@ export default function BookCarousel({ books = [] }) {
             setUser(authUser?.email ?? null);
             
             const newPremiumStatus = authUser
-                ? await getPremiumStatus(app)
+                ? await getPremiumStatus(app!)
                 : false;
             setIsSubcribed(newPremiumStatus);
         });

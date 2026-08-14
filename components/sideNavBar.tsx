@@ -25,7 +25,7 @@ type SideNavbarProps = {
 
 export default function SideNavbar({ route }: SideNavbarProps) {
     const router = useRouter();
-    const auth = getAuth(app as FirebaseApp);
+    const auth = getAuth(app as FirebaseApp | undefined);
     const [user, setUser] = useState<string | null>(null);
     const [isSubcribed, setIsSubcribed] = useState(false);
 
@@ -37,7 +37,7 @@ export default function SideNavbar({ route }: SideNavbarProps) {
             setUser(authUser?.email ?? null);
             
             const newPremiumStatus = authUser
-                ? await getPremiumStatus(app)
+                ? await getPremiumStatus(app!)
                 : false;
             setIsSubcribed(newPremiumStatus);
         });
