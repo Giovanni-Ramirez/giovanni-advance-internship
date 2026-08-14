@@ -2,6 +2,7 @@
 import { useEffect, useState } from "react";
 import { app } from "@/lib/firebase";
 import { getAuth, onAuthStateChanged } from "firebase/auth";
+import { FirebaseApp } from "firebase/app";
 import { getPremiumStatus } from "@/app/getPremiumStatus";
 import Image from "next/image";
 import { FaRegStar } from "react-icons/fa6";

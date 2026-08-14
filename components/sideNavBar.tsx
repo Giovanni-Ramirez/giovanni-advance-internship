@@ -12,6 +12,7 @@ import styles from "./sideNavBar.module.css";
 import { useEffect, useState, type MouseEvent } from "react";
 import { app } from "@/lib/firebase";
 import { getAuth, onAuthStateChanged } from "firebase/auth";
+import { FirebaseApp } from "firebase/app";
 import { useRouter } from "next/navigation";
 import { getPremiumStatus } from "@/app/getPremiumStatus";
 import ToggleAuthBtn from "@/components/ui/toggleAuthBtn";

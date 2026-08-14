@@ -5,6 +5,7 @@ import { useEffect, useState } from "react";
 import { getPremiumStatus } from "@/app/getPremiumStatus";
 import { app } from "@/lib/firebase";
 import { getAuth, onAuthStateChanged } from "firebase/auth";
+import { FirebaseApp } from "firebase/app";
 import SearchBar from "@/components/searchBar";
 import { useRouter } from "next/navigation";
 import { getPortalUrl } from "../stripePayments";
