@@ -7,24 +7,47 @@ import Link from "next/link";
 import { useEffect, useState } from "react";
 import { getPremiumStatus } from "@/app/getPremiumStatus";
 import { app } from "@/lib/firebase";
-import { getAuth } from "firebase/auth";
+import { getAuth, onAuthStateChanged } from "firebase/auth";
+import { FirebaseApp } from "firebase/app";
 
+type Book = {
+    id?: string | number;
+    title?: string;
+    author?: string;
+    subTitle?: string;
+    imageLink?: string;
+    averageRating?: number | string;
+    subscriptionRequired?: boolean;
+};
 
+type BookCarouselProps = {
+    books?: Book[] | { books: Book[] };
+};
 
-export default function BookCarousel({ books = [] }) {
-    const safeBooks = Array.isArray(books) ? books : books?.books ?? [];
-    const auth = getAuth(app);
+export default function BookCarousel({ books = [] }: BookCarouselProps) {
+    const safeBooks: Book[] = Array.isArray(books)
+        ? books
+        : books && "books" in books
+            ? books.books
+            : [];
+    const auth = getAuth(app as FirebaseApp | undefined);
+    const [user, setUser] = useState<string | null>(null);
     const [isSubcribed, setIsSubcribed] = useState(false);
 
 
     useEffect(() => {
-        const checkPremium = async () => {
-            const newPremiumStatus = auth.currentUser 
-            ? await getPremiumStatus(app)
-            : false;
+        if (!auth) return;
+
+        const unsubscribe = onAuthStateChanged(auth, async (authUser) => {
+            setUser(authUser?.email ?? null);
+            
+            const newPremiumStatus = authUser
+                ? await getPremiumStatus(app!)
+                : false;
             setIsSubcribed(newPremiumStatus);
-        };
-        checkPremium();
+        });
+
+        return unsubscribe;
     }, [auth])
 
 
@@ -43,12 +66,7 @@ export default function BookCarousel({ books = [] }) {
                 const isPremium = book.subscriptionRequired === true;
 
                 return (
-                    <Link href={isSubcribed !== false 
-                        ? `/book/${book.id}` 
-                        : isPremium 
-                            ? `/choose-plan`
-                            : `/book/${book.id}`
-                    } key={book.id ?? idx}>
+                    <Link href={`/book/${book.id}`} key={book.id ?? idx}>
                         <div className={styles.book__card}>
                             {isSubcribed !== false ? 
                                 null
@@ -57,7 +75,13 @@ export default function BookCarousel({ books = [] }) {
                             }
 
                             <figure className={styles.book__img_wrapper}>
-                                <Image src={book.imageLink} className={styles.book__img} width={172} height={172} alt={book.title || 'book image'}/>
+                                <Image
+                                    src={book.imageLink || "/placeholder-book.png"}
+                                    className={styles.book__img}
+                                    width={172}
+                                    height={172}
+                                    alt={book.title || "book image"}
+                                />
                             </figure>
                             <div className={styles.book__title}>{book.title}</div>
                             <div className={styles.book__author}>{book.author}</div>

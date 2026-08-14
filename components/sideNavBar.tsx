@@ -9,9 +9,14 @@ import { FiLogOut } from "react-icons/fi";
 import logo from "../assets/logo.png";
 import Image from "next/image";
 import styles from "./sideNavBar.module.css";
-import { useEffect, type MouseEvent } from "react";
-import { auth } from "@/lib/firebase";
+import { useEffect, useState, type MouseEvent } from "react";
+import { app } from "@/lib/firebase";
+import { getAuth, onAuthStateChanged } from "firebase/auth";
+import { FirebaseApp } from "firebase/app";
 import { useRouter } from "next/navigation";
+import { getPremiumStatus } from "@/app/getPremiumStatus";
+import ToggleAuthBtn from "@/components/ui/toggleAuthBtn";
+import Link from "next/link";
 
 
 type SideNavbarProps = {
@@ -20,6 +25,25 @@ type SideNavbarProps = {
 
 export default function SideNavbar({ route }: SideNavbarProps) {
     const router = useRouter();
+    const auth = getAuth(app as FirebaseApp | undefined);
+    const [user, setUser] = useState<string | null>(null);
+    const [isSubcribed, setIsSubcribed] = useState(false);
+
+
+    useEffect(() => {
+        if (!auth) return;
+
+        const unsubscribe = onAuthStateChanged(auth, async (authUser) => {
+            setUser(authUser?.email ?? null);
+            
+            const newPremiumStatus = authUser
+                ? await getPremiumStatus(app!)
+                : false;
+            setIsSubcribed(newPremiumStatus);
+        });
+
+        return unsubscribe;
+    }, [auth])
 
     const closeSidebar = () => {
         const sidebar = document.querySelector('.sidebar');
@@ -59,7 +83,6 @@ export default function SideNavbar({ route }: SideNavbarProps) {
         }
 
         await auth.signOut();
-        router.replace('/');
     }
 
     return (
@@ -70,37 +93,37 @@ export default function SideNavbar({ route }: SideNavbarProps) {
             </div>
             <div className={styles.sidebar__wrapper}>
                 <div className={styles.sidebar__top}>
-                    <a href="" className={styles.sidebar__link_wrapper}>
+                    <Link href="/for-you" className={styles.sidebar__link_wrapper}>
                         <div className={styles.sidebar__link_line}></div>
                         <div className={styles.sidebar__link_icon}>
                             <AiOutlineHome className={styles.sidebar__icon}/>
                         </div>
                         <div className={styles.sidebar__link_text}>For you</div>
-                    </a>
+                    </Link>
 
-                    <a href="" className={styles.sidebar__link_wrapper}>
+                    <div className={`${styles.sidebar__link_wrapper} ${styles.sidebar__link_not_allowed}`}>
                         <div className={styles.sidebar__link_line}></div>
                         <div className={styles.sidebar__link_icon}>
                             <CiBookmark className={styles.sidebar__icon}/>
                         </div>
                         <div className={styles.sidebar__link_text}>My Library</div>
-                    </a>
+                    </div>
 
-                    <a href="" className={`${styles.sidebar__link_wrapper} ${styles.sidebar__link_not_allowed}`}>
+                    <div className={`${styles.sidebar__link_wrapper} ${styles.sidebar__link_not_allowed}`}>
                         <div className={styles.sidebar__link_line}></div>
                         <div className={styles.sidebar__link_icon}>
                             <FaPen className={styles.sidebar__icon}/>
                         </div>
                         <div className={styles.sidebar__link_text}>Highlights</div>
-                    </a>
+                    </div>
 
-                    <a href="" className={`${styles.sidebar__link_wrapper} ${styles.sidebar__link_not_allowed}`}>
+                    <div className={`${styles.sidebar__link_wrapper} ${styles.sidebar__link_not_allowed}`}>
                         <div className={styles.sidebar__link_line}></div>
                         <div className={styles.sidebar__link_icon}>
                             <RxMagnifyingGlass className={styles.sidebar__icon}/>
                         </div>
                         <div className="sidebar__link_text">Search</div>
-                    </a>
+                    </div>
                     {route === 'player' && 
                         <div className={styles.font__size_control}>
                             <button
@@ -148,27 +171,40 @@ export default function SideNavbar({ route }: SideNavbarProps) {
                 </div>
 
                 <div className={styles.sidebar__bottom}>
-                    <a href="" className={styles.sidebar__link_wrapper}>
+                    <Link href="/settings" className={styles.sidebar__link_wrapper}>
                         <div className={styles.sidebar__link_line}></div>
                         <div className={styles.sidebar__link_icon}>
                             <HiOutlineCog8Tooth className={styles.sidebar__icon}/>
                         </div>
                         <div className={styles.sidebar__link_text}>Settings</div>
-                    </a>
-                    <a href="" className={`${styles.sidebar__link_wrapper} ${styles.sidebar__link_not_allowed}`}>
+                    </Link>
+                    <div className={`${styles.sidebar__link_wrapper} ${styles.sidebar__link_not_allowed}`}>
                         <div className={styles.sidebar__link_line}></div>
                         <div className={styles.sidebar__link_icon}>
                             <GoQuestion className={styles.sidebar__icon}/>
                         </div>
                         <div className={styles.sidebar__link_text}>Help & Suppport</div>
-                    </a>
-                    <a href="" className={styles.sidebar__link_wrapper} onClick={signOut}>
-                        <div className={styles.sidebar__link_line}></div>
-                        <div className={styles.sidebar__link_icon}>
-                            <FiLogOut className={styles.sidebar__icon}/>
-                        </div>
-                        <div className={styles.sidebar__link_text}>Logout</div>
-                    </a>   
+                    </div>
+                    {!user ? 
+                        <ToggleAuthBtn>
+                            <a href="" className={styles.sidebar__link_wrapper} onClick={(e) => e.preventDefault()}>
+                                <div className={styles.sidebar__link_line}></div>
+                                <div className={styles.sidebar__link_icon}>
+                                    <FiLogOut className={styles.sidebar__icon}/>
+                                </div>
+                                <div className={styles.sidebar__link_text}>Login</div>
+                            </a>
+                        </ToggleAuthBtn>
+                    :    
+                        <a href="" className={styles.sidebar__link_wrapper} onClick={signOut}>
+                            <div className={styles.sidebar__link_line}></div>
+                            <div className={styles.sidebar__link_icon}>
+                                <FiLogOut className={styles.sidebar__icon}/>
+                            </div>
+                            <div className={styles.sidebar__link_text}>Logout</div>
+                        </a>   
+
+                    }
                     {route === 'player' && 
                             <div className={styles.player__bottom_margin}></div>
                     }
