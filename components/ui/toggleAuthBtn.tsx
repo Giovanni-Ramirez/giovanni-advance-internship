@@ -11,8 +11,13 @@ interface WrapperProps {
 export default function ToggleAuthBtn({ children, className = '' }: WrapperProps) {
     const dispatch = useDispatch()
 
+    const handleClick = (e: React.MouseEvent<HTMLDivElement>) => {
+        e.preventDefault();
+        dispatch(authModalToggle());
+    };
+
     return (
-        <div className={`${className}`} onClick={() => dispatch(authModalToggle())}>
+        <div className={`${className}`} onClick={handleClick}>
         {/* This renders whatever is placed inside the component tags */}
             {children} 
         </div>

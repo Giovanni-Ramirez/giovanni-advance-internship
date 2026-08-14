@@ -30,10 +30,12 @@ const AuthRouter = (props: AuthRouterProps) => {
         const isAllowedAuthenticatedRoute =
             pathName === ACCOUNT_ROUTE ||
             pathName === "/choose-plan" ||
+            pathName === '/settings' ||
             pathName.startsWith("/book/") ||
             pathName.startsWith("/player/");
 
         if (firebaseUser) {
+            // Only redirect to /for-you when user signs in and is on HOME_ROUTE
             if (pathName === HOME_ROUTE) {
                 router.replace(ACCOUNT_ROUTE);
             } else if (!isAllowedAuthenticatedRoute) {
@@ -42,9 +44,7 @@ const AuthRouter = (props: AuthRouterProps) => {
             return;
         }
 
-        if (pathName !== HOME_ROUTE && pathName !== "/_not-found") {
-            router.replace(HOME_ROUTE);
-        }
+        // Unauthenticated users can browse freely - no forced redirect to HOME_ROUTE
     };
 
     useEffect(() => {
