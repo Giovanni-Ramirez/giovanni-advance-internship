@@ -9,7 +9,7 @@ import {
 } from "firebase/firestore";
 
 export const getPremiumStatus = async (app: FirebaseApp) => {
-    const auth = getAuth(app);
+    const auth = getAuth(app as FirebaseApp);
     const userId = auth.currentUser?.uid;
     if (!userId) throw new Error("User not logged in");
 

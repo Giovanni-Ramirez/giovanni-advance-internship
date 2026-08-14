@@ -24,7 +24,7 @@ type SideNavbarProps = {
 
 export default function SideNavbar({ route }: SideNavbarProps) {
     const router = useRouter();
-    const auth = getAuth(app);
+    const auth = getAuth(app as FirebaseApp);
     const [user, setUser] = useState<string | null>(null);
     const [isSubcribed, setIsSubcribed] = useState(false);
 

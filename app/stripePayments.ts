@@ -13,7 +13,7 @@ export const getCheckoutUrl = async (
     app: FirebaseApp,
     priceId: string
 ): Promise<string> => {
-    const auth = getAuth(app);
+    const auth = getAuth(app as FirebaseApp);
     const userId = auth.currentUser?.uid;
     if (!userId) throw new Error("User is not authenticated");
 
@@ -51,7 +51,7 @@ export const getCheckoutUrl = async (
 };
 
 export const getPortalUrl = async (app: FirebaseApp): Promise<string> => {
-const auth = getAuth(app);
+const auth = getAuth(app as FirebaseApp);
 const user = auth.currentUser;
 
 let dataWithUrl: any;

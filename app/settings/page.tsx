@@ -14,7 +14,7 @@ import ToggleAuthBtn from "@/components/ui/toggleAuthBtn";
 import Link from "next/link";
 
 export default function Setting() {
-    const auth = getAuth(app);
+    const auth = getAuth(app as FirebaseApp);
     const router = useRouter();
     const email = auth.currentUser?.email;
     const [user, setUser] = useState<string | null>(null);
