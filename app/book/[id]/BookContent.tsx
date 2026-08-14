@@ -33,7 +33,7 @@ type BookContentProps = {
 }
 
 export default function BookContent({ book }: BookContentProps) {
-    const auth = getAuth(app as FirebaseApp);
+    const auth = getAuth(app as FirebaseApp | undefined);
     const [user, setUser] = useState<string | null>(null);
     const [isSubcribed, setIsSubcribed] = useState(false);
 
