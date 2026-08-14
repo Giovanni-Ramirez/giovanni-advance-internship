@@ -29,7 +29,7 @@ export default function Setting() {
             setUser(authUser?.email ?? null);
             
             const newPremiumStatus = authUser
-                ? await getPremiumStatus(app)
+                ? await getPremiumStatus(app!)
                 : false;
             setIsSubcribed(newPremiumStatus);
         });
