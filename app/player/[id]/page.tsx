@@ -33,12 +33,9 @@ export default async function BookPage({ params }: Props) {
     return (
         <div className={styles.left__border}>
             <SideNavbar route={'player'}/>
-            <div className={styles.search__background}>
-                <div  className={styles.search__wrapper}>
-                    <div className={styles.search__sub_elem}></div>
-                    <SearchBar/>
-                </div>
-            </div>
+
+            <SearchBar/>
+
 
             <FontInit />
             <div className={styles.summary__container}>
