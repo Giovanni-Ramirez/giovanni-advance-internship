@@ -46,12 +46,9 @@ export default function Setting() {
     return (
         <div className={styles.setting__page}>
             <SideNavbar />
-            <div className={styles.search__background}>
-                <div className={styles.search__wrapper}>
-                    <div className={styles.search__sub_elem}></div>
-                    <SearchBar />
-                </div>
-            </div>
+
+            <SearchBar />
+            
             <div className="row">
                 <div className="container">
                     <div className={styles.setting__title}>Settings</div>

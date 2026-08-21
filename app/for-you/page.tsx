@@ -24,14 +24,10 @@ export default async function ForYou() {
     }
 
     return (
-        <div className={styles.right_border}>
+        <div className={styles.left_margin}>
             <SideNavbar />
-            <div className={styles.search__background}>
-                <div className={styles.search__wrapper}>
-                    <div className={styles.search__sub_elem}></div>
-                    <SearchBar />
-                </div>
-            </div>
+
+            <SearchBar />
 
             <div className="row">
                 <div className="container">
