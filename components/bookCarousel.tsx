@@ -9,6 +9,8 @@ import { getPremiumStatus } from "@/app/getPremiumStatus";
 import { app } from "@/lib/firebase";
 import { getAuth, onAuthStateChanged } from "firebase/auth";
 import { FirebaseApp } from "firebase/app";
+import Skeleton from 'react-loading-skeleton';
+import 'react-loading-skeleton/dist/skeleton.css'
 
 type Book = {
     id?: string | number;
@@ -50,12 +52,21 @@ export default function BookCarousel({ books = [] }: BookCarouselProps) {
         return unsubscribe;
     }, [auth])
 
+    const skeltonArray = new Array(8).fill(0);
 
 
     if (!safeBooks.length) {
         return (
             <div className={styles.books__container}>
-                <p className={styles.book__text}>No books available right now.</p>
+                {skeltonArray.map((_, idx) => (
+                    <div key={idx} className={styles.book__card}>
+                        <Skeleton height={172} width={172} />
+                        <Skeleton height={15} width={172} style={{ marginTop: '10px' }} />
+                        <Skeleton height={15} width={172} style={{ marginTop: '5px' }} />
+                        <Skeleton height={35} width={172} style={{ marginTop: '5px' }} />
+                        <Skeleton height={15} width={172} style={{ marginTop: '8px' }} />
+                    </div>
+                ))}
             </div>
         );
     }

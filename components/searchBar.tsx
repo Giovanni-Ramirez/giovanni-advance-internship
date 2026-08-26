@@ -6,11 +6,15 @@ import styles from './searchBar.module.css';
 import { useCallback, useRef, useEffect, useState } from 'react';
 import Image from "next/image";
 import Link from "next/link";
+import Skeleton from 'react-loading-skeleton';
+import 'react-loading-skeleton/dist/skeleton.css'
 
 export default function SearchBar() {
     const timerRef = useRef<NodeJS.Timeout | null>(null);
     const [searchResults, setSearchResults] = useState<any[]>([]);
     const [isdropdownOpen, setIsDropdownOpen] = useState(false);
+    const [isfetching, setIsFetching] = useState(false);
+    const skeltonArray = new Array(5).fill(0);
 
 
     const toggleSidebar = () => {
@@ -41,8 +45,8 @@ export default function SearchBar() {
                     } else {
                         const responseData = await searchFetch.json();
                         setSearchResults(Array.isArray(responseData) ? responseData : responseData?.books ?? []);
-                        setIsDropdownOpen(true);
-                        console.log('Search results:', searchResults);
+                        setIsFetching(false);
+                        console.log('Search results:', responseData);
                     }
                 }
             } catch (error) {
@@ -61,11 +65,18 @@ export default function SearchBar() {
         const searchInput = document.querySelector(`.${styles.search__input}`) as HTMLInputElement;
         searchInput.value = '';
         setIsDropdownOpen(false);
+        setSearchResults([]);
     }
 
     const handleChange = (value: string) => {
-        // Call the debounced function directly from your input event
-        debouncedSearch(value);
+        if (value === '') {
+            setIsDropdownOpen(false);
+            setIsFetching(false);
+        } else {
+            setIsFetching(true);
+            setIsDropdownOpen(true);
+            debouncedSearch(value);
+        }
     };
 
     return (
@@ -87,7 +98,14 @@ export default function SearchBar() {
                         <HiOutlineBars3 />
                     </button>
                     {!isdropdownOpen ? null : (
-                        !searchResults.length ?
+                        isfetching ? (
+                            <div className={styles.search__drop_down_results}>
+                                {skeltonArray.map((_, idx) => (
+                                    <Skeleton key={idx}  height={120} width={371} />
+                                ))}
+                                <div className={styles.search__no_results}>loading</div>
+                            </div>
+                        ) : !searchResults.length ?
                             <div className={styles.search__drop_down_results}>
                                 <div className={styles.search__no_results}>No results found</div>
                             </div>

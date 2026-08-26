@@ -85,3 +85,24 @@
     font-weight: 500;
     color: #032b41;
 }
+
+@media (max-width: 1200px) {
+    .selected__wrapper {
+        width: 100%;
+    }
+}
+
+@media (max-width: 770px) {
+    .selected__wrapper {
+        flex-direction: column;
+        gap: 16px;
+    }
+    .selected__book_sub_title {
+        width: 100%;
+    }
+    .selected__book_content {
+        width: 100%;
+    }
+
+    
+}

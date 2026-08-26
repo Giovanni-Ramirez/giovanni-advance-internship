@@ -19,6 +19,7 @@
 .setting__page {
     height: 100vh;
     margin-left: 200px;
+    transition: margin-left .3s ease;
 }
 
 .setting__title {
@@ -84,4 +85,10 @@
 
 .setting_login_btn {
     width: auto;
+}
+
+@media (max-width: 770px) {
+    .setting__page {
+        margin-left: 0;
+    }
 }
