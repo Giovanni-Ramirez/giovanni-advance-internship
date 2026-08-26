@@ -1,36 +1,29 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
 
-## Getting Started
+## This is Summarist a online book subscription service to read and enjoy all your favorite books.
 
-First, run the development server:
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+### This the landing page
+<img width="2065" height="1199" alt="image" src="https://github.com/user-attachments/assets/7194717d-5d7d-47ca-a6cd-160717498188" />
+This is the landing page where you can read about the website and why you should become a member
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+### This is the for you page
+<img width="2451" height="1196" alt="image" src="https://github.com/user-attachments/assets/b6101809-6a62-4a05-9379-2da12d4c5962" />
+This is where you can see the book that have been call by the website
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+### This is the read / audio page
+<img width="2529" height="1186" alt="image" src="https://github.com/user-attachments/assets/78425f72-91d2-440c-895e-440099818427" />
+This is where you can read the longer summary of the book and also listen to the audio with the audio interface
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
 
-## Learn More
+## How to test the site
 
-To learn more about Next.js, take a look at the following resources:
+There is two accounts you can use to login
+  1. email: testemail123@gmail.com
+     password: testemail123
+  This on will have a subscription and be able to see any books
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+  2. email: testemail12345@gmail.com
+     password: testemail12345
+  This one will just be an account with no subscription so you can view the plan page.
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+  3. uses your email to make an account and if you want to test out the stripe subscription then use 4242 4242 4242 4242
