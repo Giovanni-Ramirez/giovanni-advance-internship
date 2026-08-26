@@ -18,6 +18,7 @@
 
 .left__border {
     margin-left: 200px;
+    transition: margin-left .3s ease;
 }
 
 .book__container {
@@ -170,4 +171,41 @@
     justify-content: center;
     font-size: 22px;
     padding-right: 8px;
+}
+
+@media (max-width: 1000px) {
+    .book__container {
+        flex-direction: column-reverse;
+    }
+
+    .book__image_container {
+        display: flex;
+        justify-content: center;
+    }
+}
+
+@media (max-width: 770px) {
+    .left__border {
+        margin-left: 0;
+    }
+
+    .book__title {
+        font-size: 24px;
+    }
+
+    .book__author {
+        font-size: 14px;
+    }
+
+    .book__sub_title {
+        font-size: 18px;
+    }
+
+    .book__bookmark {
+        font-size: 16px;
+    }
+
+    .book__section_text {
+        font-size: 14px;
+    }
 }

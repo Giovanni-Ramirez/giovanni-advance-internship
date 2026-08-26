@@ -13,6 +13,8 @@ import Image from "next/image";
 import logInImage from '@/assets/login.png';
 import ToggleAuthBtn from "@/components/ui/toggleAuthBtn";
 import Link from "next/link";
+import Skeleton from 'react-loading-skeleton';
+import 'react-loading-skeleton/dist/skeleton.css'
 
 export default function Setting() {
     const auth = getAuth(app as FirebaseApp);
@@ -20,18 +22,24 @@ export default function Setting() {
     const email = auth.currentUser?.email;
     const [user, setUser] = useState<string | null>(null);
     const [isSubcribed, setIsSubcribed] = useState(false);
+    const [isLoading, setIsLoading] = useState(false);
 
 
     useEffect(() => {
         if (!auth) return;
 
         const unsubscribe = onAuthStateChanged(auth, async (authUser) => {
+            setIsLoading(true);
             setUser(authUser?.email ?? null);
-            
-            const newPremiumStatus = authUser
-                ? await getPremiumStatus(app!)
-                : false;
-            setIsSubcribed(newPremiumStatus);
+
+            try {
+                const newPremiumStatus = authUser
+                    ? await getPremiumStatus(app!)
+                    : false;
+                setIsSubcribed(newPremiumStatus);
+            } finally {
+                setIsLoading(false);
+            }
         });
 
         return unsubscribe;
@@ -64,24 +72,42 @@ export default function Setting() {
                             <>
                                 <div className={`${styles.setting__section} ${styles.setting__section_flex}`}>
                                     <div>
-                                        <div className={styles.setting__section_title}>Your Subcription plan</div>
-                                        {isSubcribed !== false ?
-                                            <div className={styles.setting__text}>Premium</div>
-                                        :
-                                            <div className={styles.setting__text}>No Plan</div>
-                                        }
+                                        {isLoading ? (
+                                            <Skeleton height={22} width={175}/>
+                                        ) : (
+                                            <div className={styles.setting__section_title}>Your Subcription plan</div>
+                                        )}
+                                        {isLoading ? (
+                                            <Skeleton height={22} width={150}/>
+                                        ) : (
+                                            isSubcribed !== false ?
+                                                <div className={styles.setting__text}>Premium</div>
+                                            :
+                                                <div className={styles.setting__text}>No Plan</div>
+                                        )}
                                     </div>
-                                    {isSubcribed !== false ?
-                                        <button className="btn" onClick={manageSubcription}>Edit plan</button>
-                                    :
-                                        <Link href="/choose-plan">
-                                            <button className="btn">Choose a plan</button>
-                                        </Link>
-                                    }
+                                    {isLoading ? (
+                                        <Skeleton height={40} width={180}/>
+                                    ) : (
+                                        isSubcribed !== false ?
+                                            <button className="btn" onClick={manageSubcription}>Edit plan</button>
+                                        :
+                                            <Link href="/choose-plan">
+                                                <button className="btn">Choose a plan</button>
+                                            </Link>
+                                    )}
                                 </div>
                                 <div className={styles.setting__section}>
-                                    <div className={styles.setting__section_title}>Email</div>
-                                    <div className={styles.setting__text}>{email}</div>
+                                    {isLoading ? (
+                                        <Skeleton height={22} width={175}/>
+                                    ) : (
+                                        <div className={styles.setting__section_title}>Email</div>
+                                    )}
+                                    {isLoading ? (
+                                        <Skeleton height={22} width={200}/>
+                                    ) : (
+                                        <div className={styles.setting__text}>{email}</div>
+                                    )}
                                 </div>
                             </>
                     }

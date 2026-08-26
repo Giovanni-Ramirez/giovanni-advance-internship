@@ -23,6 +23,7 @@ export default function AudioBar({ title, author, image, audioLink }: AudioBarPr
     const animationRef = useRef<number | null>(null);
     
     const returnTime = (secs: number) => {
+        if (!Number.isFinite(secs) || secs <= 0) return '00:00';
         const minutes = Math.floor(secs / 60);
         const returnedMinutes = minutes < 10 ? `0${minutes}` : `${minutes}`;
         const seconds = Math.floor(secs % 60);
@@ -33,11 +34,26 @@ export default function AudioBar({ title, author, image, audioLink }: AudioBarPr
 
     useEffect(() => {
         if (!audioPlayer.current) return;
-        const seconds = Math.floor(audioPlayer.current.duration);
-        setDuration(seconds);
-        if (progressBar.current) {
-            progressBar.current.max = String(seconds);
+        const audioEl = audioPlayer.current;
+
+        const setDur = () => {
+            const d = audioEl.duration;
+            const seconds = Number.isFinite(d) ? Math.floor(d) : 0;
+            setDuration(seconds);
+            if (progressBar.current) {
+                progressBar.current.max = String(seconds);
+            }
+        };
+
+        if (Number.isFinite(audioEl.duration) && audioEl.duration > 0) {
+            setDur();
+        } else {
+            audioEl.addEventListener('loadedmetadata', setDur);
         }
+
+        return () => {
+            audioEl.removeEventListener('loadedmetadata', setDur);
+        };
     }, [audioLink]);
 
 
@@ -81,7 +97,8 @@ export default function AudioBar({ title, author, image, audioLink }: AudioBarPr
     
     const changePlayerCurrentTime = () => {
         if (!progressBar.current) return;
-        progressBar.current.style.setProperty('--seek-before-width', `${progressBar.current.valueAsNumber / duration * 100}%`);
+        const percent = duration > 0 ? (progressBar.current.valueAsNumber / duration) * 100 : 0;
+        progressBar.current.style.setProperty('--seek-before-width', `${percent}%`);
         setCurrentTime(progressBar.current.valueAsNumber);
     }
 
