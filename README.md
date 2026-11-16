@@ -1,5 +1,7 @@
 
-## This is Summarist a online book subscription service to read and enjoy all your favorite books. Takes you from Account creation, to viewing your book and subcribing to a monthly service through strip.
+## This is Summarist a online book subscription service to read and enjoy all your favorite books. 
+
+This website takes you from Account creation, to viewing your book and subscribing to a monthly service through strip and all through a responsive and clean UI.
 
 
 ### This the landing page
