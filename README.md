@@ -29,3 +29,47 @@ There is two accounts you can use to login
   This one will just be an account with no subscription so you can view the plan page.
 
   3. uses your email to make an account and if you want to test out the stripe subscription then use 4242 4242 4242 4242
+
+## Getting Started
+
+### Prerequisites
+
+* **Node.js:** `v20.19.41` (or any Node `v20.9+` LTS)
+  * *If you use [nvm](https://github.com) (or [nvm-windows](https://github.com)), run:*
+    ```bash
+    nvm install 20.19.41
+    nvm use 20.19.41
+    ```
+
+### Installation
+
+1. **Clone the repository:**
+   ```bash
+   git clone https://github.com
+   cd giovanni-advance-internship
+   ```
+
+2. **Install dependencies:**
+   ```bash
+   npm install
+   ```
+
+3. **Set up environment variables:**
+   Create a `.env` file in the root directory and add your Firebase and Stripe configuration keys:
+   ```env
+   NEXT_PUBLIC_FIREBASE_API_KEY=your_api_key
+   NEXT_PUBLIC_FIREBASE_AUTH_DOMAIN=your_auth_domain
+   NEXT_PUBLIC_FIREBASE_PROJECT_ID=your_project_id
+   NEXT_PUBLIC_FIREBASE_STORAGE_BUCKET=your_storage_bucket
+   NEXT_PUBLIC_FIREBASE_MESSAGING_SENDER_ID=your_messaging_sender_id
+   NEXT_PUBLIC_FIREBASE_APP_ID=your_app_id
+   NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY=your_stripe_key
+   ```
+   *(Note: This project uses `@dotenvx/dotenvx`—if you have a `.env.keys` file for encrypted variables, place it in the root directory.)*
+
+4. **Run the development server:**
+   ```bash
+   npm run dev
+   ```
+   Open [http://localhost:3000](http://localhost:3000) in your browser to view the application locally, or visit the live deployment at [giovanni-advance-internship.vercel.app](https://vercel.app).
+
